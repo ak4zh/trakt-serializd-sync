@@ -17,9 +17,7 @@ from platformdirs import user_data_dir
 from trakt_serializd_sync.consts import (
     DEFAULT_SERIALIZD_DELAY_MS,
     SERIALIZD_APP_ID,
-    SERIALIZD_AUTH_COOKIE,
     SERIALIZD_BASE_URL,
-    SERIALIZD_COOKIE_DOMAIN,
     SERIALIZD_FRONT_URL,
 )
 from trakt_serializd_sync.exceptions import (
@@ -96,11 +94,10 @@ class SerializdClient:
 
     def _load_token(self, access_token: str) -> None:
         """Set the access token cookie."""
-        self.session.cookies.set(
-            name=SERIALIZD_AUTH_COOKIE,
-            value=access_token,
-            domain=SERIALIZD_COOKIE_DOMAIN,
-        )
+        self._access_token = access_token
+        self.session.headers.update({
+            "Authorization": f"Bearer {access_token}",
+        })
 
     def save_token(self, access_token: str, username: str) -> None:
         """Save token data to disk."""
@@ -167,7 +164,7 @@ class SerializdClient:
             '/login',
             data=json.dumps({"email": email, "password": password}),
         )
-        
+        logging.info(resp)
         if not resp.is_success:
             raise SerializdAuthError(f"Login failed: {resp.status_code}")
         

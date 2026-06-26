@@ -9,11 +9,9 @@ TRAKT_REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
 TRAKT_BASE_URL = 'https://api.trakt.tv'
 
 # Serializd API configuration (unofficial/reverse-engineered)
-SERIALIZD_BASE_URL = 'https://www.serializd.com/api'
+SERIALIZD_BASE_URL = 'https://serializd.onrender.com/api/'
 SERIALIZD_FRONT_URL = 'https://www.serializd.com'
 SERIALIZD_APP_ID = 'serializd_vercel'
-SERIALIZD_AUTH_COOKIE = 'tvproject_credentials'
-SERIALIZD_COOKIE_DOMAIN = '.serializd.com'
 
 # Sync configuration defaults
 DEFAULT_SYNC_INTERVAL_MINUTES = 15
