@@ -164,7 +164,6 @@ class SerializdClient:
             '/login',
             data=json.dumps({"email": email, "password": password}),
         )
-        logging.info(resp)
         if not resp.is_success:
             raise SerializdAuthError(f"Login failed: {resp.status_code}")
         
